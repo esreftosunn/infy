@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Infy Admin Panel</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/variables.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <style>
+        /* Admin Specific Styles */
+        body {
+            background-color: #f0f2f5;
+            /* Light BG */
+            color: #1a1a1a;
+            /* Black Text */
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .login-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, var(--color-bg), #000);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+        }
+
+        .login-card {
+            background: #ffffff;
+            padding: 2.5rem;
+            border-radius: 20px;
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            color: #333;
+        }
+
+        .login-card h2 {
+            font-family: var(--font-heading);
+            margin-bottom: 1.5rem;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .dashboard-container {
+            display: none;
+            /* Hidden by default */
+            flex-grow: 1;
+            padding: 2rem;
+        }
+
+        .dashboard-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .dashboard-title {
+            font-family: var(--font-heading);
+            font-size: 2rem;
+            color: #000000;
+            /* Black Title */
+        }
+
+        .admin-nav {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .admin-tab {
+            padding: 0.8rem 1.5rem;
+            background: #e4e6eb;
+            /* Light grey bg */
+            border: none;
+            color: #000000;
+            /* Black text */
+            border-radius: 10px;
+            cursor: pointer;
+            font-family: var(--font-body);
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .admin-tab.active {
+            background: var(--color-primary);
+            color: black;
+        }
+
+        .data-table-container {
+            overflow-x: auto;
+            background: #ffffff;
+            border-radius: 15px;
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 800px;
+        }
+
+        .data-table th,
+        .data-table td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .data-table td {
+            color: #333;
+            /* Black Table Text */
+        }
+
+        .data-table th {
+            font-weight: 600;
+            color: #000;
+            background: #f8f9fa;
+        }
+
+        .data-table tr:hover {
+            background: #f9f9f9;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .no-data {
+            padding: 2rem;
+            text-align: center;
+            color: var(--color-text-muted);
+        }
+
+        .delete-btn {
+            background: #ff4757;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.8rem;
+        }
+
+        /* Enhanced Login Inputs */
+        #loginForm input {
+            background: #ffffff;
+            color: #000000;
+            border: 2px solid var(--color-primary);
+            font-weight: 600;
+            font-size: 1.1rem;
+            padding: 15px;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        #loginForm input:focus {
+            transform: scale(1.02);
+            box-shadow: 0 8px 25px rgba(230, 2, 134, 0.4);
+            outline: none;
+        }
+
+        #loginForm input::placeholder {
+            color: #666;
+            font-weight: 400;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Login Screen -->
+    <div id="loginScreen" class="login-overlay">
+        <div class="login-card">
+            <h2>Giriş</h2>
+            <form id="loginForm">
+                <div class="form-group">
+                    <input type="text" id="adminUsername" placeholder="Kullanıcı Adı" required>
+                </div>
+                <div class="form-group">
+                    <input type="password" id="adminPassword" placeholder="Şifre" required>
+                </div>
+                <button type="submit" class="btn btn-primary btn-block">Giriş Yap</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Dashboard -->
+    <div id="dashboard" class="dashboard-container">
+        <header class="dashboard-header">
+            <h1 class="dashboard-title">Infy Yönetim Paneli</h1>
+            <button id="logoutBtn" class="btn btn-primary">Çıkış Yap</button>
+        </header>
+
+        <nav class="admin-nav">
+            <button class="admin-tab active" data-tab="brand-submissions">Marka Başvuruları</button>
+            <button class="admin-tab" data-tab="influencer-submissions">Influencer Başvuruları</button>
+            <button class="admin-tab" data-tab="slider-manager">Slider Yönetimi</button>
+            <button class="admin-tab" data-tab="reference-manager">Referans Yönetimi</button>
+            <button class="admin-tab" data-tab="blog-manager">Blog Yönetimi</button>
+        </nav>
+
+        <!-- Brand Table -->
+        <div id="brand-submissions" class="tab-content active">
+            <div class="data-table-container">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Tarih</th>
+                            <th>İsim Soyisim</th>
+                            <th>Marka</th>
+                            <th>Pozisyon</th>
+                            <th>İletişim</th>
+                            <th>Hedefler</th>
+                            <th>İşlem</th>
+                        </tr>
+                    </thead>
+                    <tbody id="brandTableBody">
+                        <!-- JS renders rows here -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Influencer Table -->
+        <div id="influencer-submissions" class="tab-content">
+            <div class="data-table-container">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Tarih</th>
+                            <th>İsim Soyisim</th>
+                            <th>Kullanıcı Adı / Link</th>
+                            <th>Takipçi</th>
+                            <th>Kategori</th>
+                            <th>İletişim</th>
+                            <th>İşlem</th>
+                        </tr>
+                    </thead>
+                    <tbody id="infTableBody">
+                        <!-- JS renders rows here -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Slider Manager -->
+        <div id="slider-manager" class="tab-content">
+            <div class="login-card" style="max-width: 100%; margin-bottom: 2rem; text-align: left;">
+                <h3 style="margin-bottom: 1rem;">Yeni Slide Ekle</h3>
+                <form id="addSlideForm">
+                    <div class="form-group"><input type="text" id="slideTitle" placeholder="Başlık" required></div>
+                    <div class="form-group"><input type="text" id="slideSubtitle" placeholder="Alt Başlık" required>
+                    </div>
+                    <div class="form-group"><input type="text" id="slideDesc" placeholder="Açıklama" required></div>
+                    <div class="form-group"><input type="text" id="slideImage" placeholder="Görsel URL" required></div>
+                    <div class="form-group"><input type="text" id="slideBtnText" placeholder="Buton Metni"
+                            value="Projeyi İncele"></div>
+                    <div class="form-group"><input type="text" id="slideBtnLink" placeholder="Buton Linki"
+                            value="#contact"></div>
+                    <button type="submit" class="btn btn-primary">Ekle</button>
+                </form>
+            </div>
+            <div class="data-table-container">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Görsel</th>
+                            <th>Başlık</th>
+                            <th>İşlem</th>
+                        </tr>
+                    </thead>
+                    <tbody id="sliderTableBody"></tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Reference Manager -->
+        <div id="reference-manager" class="tab-content">
+            <div class="login-card" style="max-width: 100%; margin-bottom: 2rem; text-align: left;">
+                <h3 style="margin-bottom: 1rem;">Yeni Referans Ekle</h3>
+                <form id="addRefForm">
+                    <div class="form-group"><input type="text" id="refName" placeholder="Marka Adı" required></div>
+                    <button type="submit" class="btn btn-primary">Ekle</button>
+                </form>
+            </div>
+            <div class="data-table-container">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Marka Adı</th>
+                            <th>İşlem</th>
+                        </tr>
+                    </thead>
+                    <tbody id="refTableBody"></tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Blog Manager -->
+        <div id="blog-manager" class="tab-content">
+            <div class="login-card" style="max-width: 100%; margin-bottom: 2rem; text-align: left;">
+                <h3 style="margin-bottom: 1rem;">Yeni Blog Yazısı Ekle</h3>
+                <form id="addBlogForm">
+                    <div class="form-group"><input type="text" id="blogTitle" placeholder="Başlık" required></div>
+                    <div class="form-group"><input type="text" id="blogCategory" placeholder="Kategori" required></div>
+                    <div class="form-group"><input type="text" id="blogImage" placeholder="Görsel URL" required></div>
+                    <div class="form-group"><textarea id="blogExcerpt" placeholder="Özet" required
+                            style="width:100%; padding:10px; background:rgba(255,255,255,0.1); border:none; color:white;"></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Ekle</button>
+                </form>
+            </div>
+            <div class="data-table-container">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Görsel</th>
+                            <th>Başlık</th>
+                            <th>Kategori</th>
+                            <th>İşlem</th>
+                        </tr>
+                    </thead>
+                    <tbody id="blogTableBody"></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <script src="assets/js/admin.js"></script>
+</body>
+
+</html>

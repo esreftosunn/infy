@@ -1,0 +1,1095 @@
+/* Reset & Base */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: var(--font-body);
+    background-color: var(--color-bg);
+    color: var(--color-text-main);
+    line-height: 1.6;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+    transition: var(--transition-fast);
+}
+
+ul {
+    list-style: none;
+}
+
+img {
+    max-width: 100%;
+    display: block;
+}
+
+/* Utilities */
+.container {
+    max-width: var(--container-width);
+    margin: 0 auto;
+    padding: 0 40px;
+    /* Increased side padding */
+}
+
+.text-center {
+    text-align: center;
+}
+
+.section {
+    padding: var(--spacing-xl) 0;
+}
+
+.section-title {
+    font-family: var(--font-heading);
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: var(--spacing-sm);
+    background: var(--gradient-text);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.section-desc {
+    font-size: 1.125rem;
+    color: var(--color-text-muted);
+    max-width: 600px;
+    margin: 0 auto var(--spacing-lg);
+}
+
+/* Button Component - Redesign */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 14px 32px;
+    border-radius: 50px;
+    /* Pill shape */
+    font-weight: 700;
+    font-size: 0.95rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    cursor: pointer;
+    transition: all var(--transition-normal);
+    text-decoration: none;
+    border: 2px solid #000;
+    /* Bold border */
+}
+
+.btn-primary {
+    background-color: var(--color-primary);
+    color: #fff;
+    border-color: #000;
+    box-shadow: 4px 4px 0px #000;
+    /* Retro offset shadow */
+}
+
+.btn-primary:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: 6px 6px 0px #000;
+    background-color: var(--color-secondary);
+    /* Switch to yellow on hover */
+    color: #000;
+}
+
+.btn-outline {
+    background-color: transparent;
+    color: #000;
+    border-color: #000;
+}
+
+.btn-outline:hover {
+    background-color: #000;
+    color: #fff;
+}
+
+.btn-block {
+    display: block;
+    width: 100%;
+    text-align: center;
+}
+
+/* Header */
+.header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    transition: all 0.4s ease;
+    padding: 20px 40px;
+    /* Increased side padding for balance */
+    background: rgba(255, 255, 255, 0.95);
+    /* Always white background */
+    backdrop-filter: blur(10px);
+}
+
+.header.scrolled {
+    padding: 15px 40px;
+    background: rgba(255, 255, 255, 0.95);
+    /* Visible background on scroll */
+    backdrop-filter: blur(10px);
+    box-shadow: var(--shadow-sm);
+}
+
+.header.header-hidden {
+    transform: translateY(-100%);
+    /* Hide on scroll down */
+    box-shadow: none;
+}
+
+.header-inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    display: block;
+    text-decoration: none;
+    line-height: 0;
+    /* Tight wrap */
+}
+
+.logo-img {
+    height: 90px;
+    /* Adjust size */
+    width: auto;
+    object-fit: contain;
+}
+
+.nav {
+    display: flex;
+    gap: 2rem;
+}
+
+.nav-link {
+    font-size: 0.95rem;
+    color: var(--color-text-muted);
+}
+
+.nav-link:hover {
+    color: white;
+}
+
+.header-actions {
+    display: flex;
+    gap: 1rem;
+}
+
+.header-actions .btn {
+    min-width: 140px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.menu-toggle {
+    display: none;
+}
+
+/* Hero Slider */
+.hero {
+    height: 100vh;
+    position: relative;
+    overflow: hidden;
+}
+
+.slider-container,
+.slider-wrapper,
+.slide {
+    height: 100%;
+    width: 100%;
+}
+
+.slider-wrapper {
+    position: relative;
+}
+
+.slide {
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0;
+    transition: opacity 1s ease;
+    display: flex;
+    align-items: center;
+    z-index: 1;
+}
+
+.slide.active {
+    opacity: 1;
+    z-index: 2;
+}
+
+.slide-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: -1;
+    filter: brightness(0.6);
+}
+
+.slide-content {
+    position: relative;
+    z-index: 3;
+    width: 100%;
+    /* Align left by taking full container width */
+}
+
+.slide-subtitle {
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(5px);
+    border-radius: 30px;
+    font-size: 0.9rem;
+    margin-bottom: 1.5rem;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.slide-title {
+    font-family: var(--font-heading);
+    font-size: 4rem;
+    line-height: 1.1;
+    font-weight: 800;
+    margin-bottom: 1.5rem;
+}
+
+.slide-desc {
+    font-size: 1.2rem;
+    color: rgba(255, 255, 255, 0.9);
+    margin-bottom: 2rem;
+    max-width: 600px;
+}
+
+/* Slider Controls */
+.slider-controls {
+    position: absolute;
+    bottom: 50px;
+    right: 50px;
+    display: flex;
+    gap: 1rem;
+    z-index: 10;
+}
+
+.prev-slide,
+.next-slide {
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: white;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 1.2rem;
+    transition: var(--transition-fast);
+    backdrop-filter: blur(5px);
+}
+
+.prev-slide:hover,
+.next-slide:hover {
+    background: var(--color-primary);
+    border-color: var(--color-primary);
+}
+
+.slider-indicators {
+    position: absolute;
+    bottom: 50px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 0.5rem;
+    z-index: 10;
+}
+
+.indicator {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.3);
+    cursor: pointer;
+    transition: var(--transition-fast);
+}
+
+.indicator.active {
+    background: white;
+    transform: scale(1.2);
+}
+
+@media (max-width: 768px) {
+    .slider-controls {
+        display: none;
+        /* Hide arrows on mobile, maybe implement swipe later */
+    }
+}
+
+
+/* Stats */
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    text-align: center;
+}
+
+.stat-number {
+    font-family: var(--font-heading);
+    font-size: 3.5rem;
+    font-weight: 700;
+    color: var(--color-primary);
+    /* Solid Magenta */
+    background: none;
+    -webkit-text-fill-color: initial;
+}
+
+.stat-label {
+    font-size: 1.1rem;
+    color: var(--color-text-muted);
+}
+
+/* About */
+.about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+}
+
+.about-text {
+    font-size: 1.05rem;
+    color: var(--color-text-muted);
+    margin-bottom: 1rem;
+    line-height: 1.7;
+}
+
+.about-list li {
+    position: relative;
+    padding-left: 20px;
+    margin-bottom: 0.5rem;
+    color: var(--color-text-muted);
+}
+
+.about-list li::before {
+    content: '•';
+    color: var(--color-primary);
+    position: absolute;
+    left: 0;
+    font-size: 1.5rem;
+    line-height: 1;
+}
+
+.about-image img {
+    border-radius: 20px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+}
+
+/* Services Page Styles */
+.services-section .section-desc {
+    text-align: center;
+    font-weight: 800;
+    max-width: 900px;
+    margin: 0 auto 3rem;
+    font-size: 1.8rem;
+    letter-spacing: -1px;
+    background: linear-gradient(135deg, var(--color-primary) 0%, #ff4757 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    padding-bottom: 5px;
+    /* Prevent descender clip */
+}
+
+.services-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    /* Stacked for emphasis */
+    gap: 4rem;
+    /* More space between sections */
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.service-card {
+    background: #ffffff;
+    /* Force white bg */
+    padding: 3rem;
+    /* More padding */
+    border-radius: 20px;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    transition: transform 0.3s ease;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.02);
+    /* Slight shadow for white card */
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+.service-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+}
+
+.services-section .container {
+    max-width: var(--container-width);
+    /* Reset to standard width */
+}
+
+.service-title {
+    font-family: var(--font-heading);
+    font-size: 1.75rem;
+    /* Larger */
+    font-weight: 800 !important;
+    color: #000000 !important;
+    margin-bottom: 2rem;
+    min-height: 80px;
+    /* Adjusted for larger font */
+    display: flex;
+    align-items: flex-start;
+    line-height: 1.2;
+}
+
+.service-list li {
+    margin-bottom: 1.5rem;
+}
+
+.service-list li strong {
+    display: block;
+    font-size: 1.2rem;
+    /* Larger subtitle */
+    font-weight: 700;
+    color: #000;
+    margin-bottom: 0.3rem;
+}
+
+.service-list li p,
+.service-content p {
+    font-size: 1.1rem;
+    /* Larger body */
+    color: #333;
+    line-height: 1.6;
+}
+
+.services-cta {
+    margin-top: 2rem;
+    margin-bottom: 6rem;
+    /* Add space below button */
+}
+
+@media (max-width: 768px) {
+    .services-grid {
+        grid-template-columns: 1fr;
+        /* Stack on mobile */
+    }
+}
+
+/* Apply Section */
+.apply-section {
+    background: var(--color-surface);
+}
+
+.apply-tabs {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-bottom: 3rem;
+}
+
+.tab-btn {
+    padding: 1rem 2.5rem;
+    border: none;
+    background: transparent;
+    color: var(--color-text-muted);
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+    transition: var(--transition-medium);
+}
+
+.tab-btn.active {
+    color: white;
+    border-bottom-color: var(--color-primary);
+}
+
+.tab-pane {
+    display: none;
+    animation: fadeIn 0.5s ease;
+}
+
+.tab-pane.active {
+    display: block;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.footer p,
+.footer span,
+.footer div,
+.footer h4,
+.footer a {
+    color: #ffffff;
+    /* Force white text */
+}
+
+.footer-logo-text {
+    font-size: 2.5rem;
+    font-weight: 800;
+    color: #fff;
+    /* White Logo */
+    background: none;
+    -webkit-text-fill-color: initial;
+    margin-bottom: 2rem;
+    letter-spacing: -1px;
+}
+
+.footer-desc {
+    color: #ffffff;
+    font-size: 1.1rem;
+    max-width: 400px;
+}
+
+.footer-title {
+    color: #fff;
+    /* White titles */
+    font-size: 1.2rem;
+    margin-bottom: 1.5rem;
+    position: relative;
+    padding-bottom: 10px;
+}
+
+.footer-title::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 40px;
+    height: 3px;
+    background: var(--color-secondary);
+    /* Yellow accent */
+}
+
+.form-wrapper {
+    max-width: 600px;
+    margin: 0 auto;
+    background: var(--color-bg);
+    padding: 3rem;
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+/* Success Story Featured Section */
+.success-story-section {
+    padding-top: 50px;
+    padding-bottom: 12rem;
+    /* Added space before next section */
+}
+
+.pink-title {
+    color: var(--color-primary) !important;
+    background: none !important;
+    -webkit-text-fill-color: initial !important;
+    font-size: 3rem;
+    margin-bottom: 3rem;
+}
+
+.success-story-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+}
+
+.success-content h3 {
+    font-family: var(--font-heading);
+    font-size: 1.8rem;
+    margin-bottom: 1.5rem;
+    color: #ffffff;
+    /* White heading on dark background context if applicable, or black if light section. Checking global. assuming light per redesign requests usually... actually 'About' was white bg on light? Wait, global bg is var(--color-bg). let's use color-text-main */
+    color: var(--color-text-main);
+}
+
+.success-content p {
+    font-size: 1.1rem;
+    color: var(--color-text-muted);
+    line-height: 1.7;
+    margin-bottom: 1.5rem;
+}
+
+.success-stats-list {
+    margin: 1.5rem 0;
+    padding-left: 20px;
+}
+
+.success-stats-list li {
+    margin-bottom: 0.8rem;
+    color: var(--color-text-muted);
+    position: relative;
+    font-size: 1.1rem;
+}
+
+.success-stats-list li strong {
+    color: var(--color-primary);
+    font-size: 1.3rem;
+}
+
+.success-stats-list li::before {
+    content: '★';
+    color: var(--color-secondary);
+    position: absolute;
+    left: -25px;
+    top: 2px;
+}
+
+.success-image img {
+    border-radius: 20px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    mix-blend-mode: multiply;
+    /* Blends white bg with site bg */
+}
+
+@media (max-width: 992px) {
+    .success-story-grid {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+
+    .pink-title {
+        font-size: 2.5rem;
+    }
+}
+
+.form-wrapper h3 {
+    margin-bottom: 2rem;
+    text-align: center;
+    font-family: var(--font-heading);
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+    width: 100%;
+    padding: 1rem;
+    background: var(--color-surface);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    color: white;
+    font-family: var(--font-body);
+    font-size: 1rem;
+    transition: var(--transition-fast);
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: var(--color-primary);
+    background: black;
+}
+
+.form-group textarea {
+    min-height: 120px;
+    resize: vertical;
+}
+
+/* Marquee */
+.logo-marquee {
+    overflow: hidden;
+    padding: 2rem 0;
+    position: relative;
+}
+
+.marquee-content {
+    display: flex;
+    gap: 4rem;
+    animation: scroll 20s linear infinite;
+    width: max-content;
+}
+
+.brand-logo {
+    font-size: 2rem;
+    font-weight: 800;
+    color: rgba(0, 0, 0, 0.5);
+    /* Dark text for visibility on white */
+    white-space: nowrap;
+}
+
+@keyframes scroll {
+    0% {
+        transform: translateX(0);
+    }
+
+    100% {
+        transform: translateX(-50%);
+    }
+}
+
+/* Application Box - Transparent Black */
+.apply-container-box {
+    background: rgba(0, 0, 0, 0.7);
+    /* Transparent black */
+    border-radius: 40px;
+    padding: 60px 40px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(10px);
+}
+
+.apply-container-box .section-title {
+    color: white;
+    background: none;
+    -webkit-text-fill-color: white;
+}
+
+.apply-container-box .section-desc {
+    color: rgba(255, 255, 255, 0.8);
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 100%;
+    /* Allow full width for single line */
+}
+
+/* Footer */
+.footer {
+    padding: 4rem 0 2rem;
+    background: #050505;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.footer-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    gap: 4rem;
+    margin-bottom: 4rem;
+}
+
+
+.footer h4 {
+    margin-bottom: 1.5rem;
+    font-family: var(--font-heading);
+}
+
+.social-links {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+}
+
+.social-links a {
+    display: flex;
+    align-items: center;
+    transition: var(--transition-fast);
+}
+
+.social-links img {
+    height: 18px;
+    /* Approx 16pt */
+    width: auto;
+    opacity: 0.9;
+    transition: var(--transition-fast);
+}
+
+.social-links a:hover img {
+    opacity: 1;
+    transform: scale(1.1);
+}
+
+.footer-links a {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: var(--color-text-muted);
+}
+
+.footer-bottom {
+    text-align: center;
+    padding-top: 2rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    color: var(--color-text-muted);
+    font-size: 0.9rem;
+}
+
+/* Blog Section */
+.blog-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    padding: 0 1rem;
+}
+
+/* Make the first 2 items take more space or just fluid grid? Let's keep it simple auto-fit first, or specific span if 5 items. 
+   With 5 items, auto-fit might leave a gap. Let's make the 1st one featured if desktop, or just simple grid.
+*/
+.blog-card {
+    background: var(--color-surface);
+    border-radius: 20px;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    transition: var(--transition-medium);
+    display: flex;
+    flex-direction: column;
+}
+
+.blog-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+.blog-img {
+    height: 200px;
+    position: relative;
+    overflow: hidden;
+}
+
+.blog-img img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.blog-card:hover .blog-img img {
+    transform: scale(1.1);
+}
+
+.blog-category {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    background: rgba(0, 0, 0, 0.7);
+    color: white;
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 500;
+    backdrop-filter: blur(5px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.blog-content {
+    padding: 1.5rem;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.blog-title {
+    font-family: var(--font-heading);
+    font-size: 1.25rem;
+    margin-bottom: 1rem;
+    line-height: 1.4;
+    color: white;
+}
+
+.blog-excerpt {
+    font-size: 0.95rem;
+    color: var(--color-text-muted);
+    margin-bottom: 1.5rem;
+    line-height: 1.6;
+    flex-grow: 1;
+}
+
+.read-more {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--color-primary);
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.read-more span {
+    transition: transform 0.2s ease;
+}
+
+.read-more:hover span {
+    transform: translateX(5px);
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+    .header-inner {
+        padding: 0 1rem;
+    }
+
+    .nav,
+    .header-actions {
+        display: none;
+    }
+
+    /* Simplified for now */
+
+    .menu-toggle {
+        display: block;
+        width: 30px;
+        background: none;
+        border: none;
+        cursor: pointer;
+    }
+
+    .menu-toggle span {
+        display: block;
+        width: 100%;
+        height: 2px;
+        background: white;
+        margin-bottom: 6px;
+    }
+
+    .slide-title {
+        font-size: 2.5rem;
+    }
+
+    .stats-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .about-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .footer-grid {
+        grid-template-columns: 1fr;
+        text-align: center;
+    }
+}
+
+/* Services Section */
+.services-section {
+    background: var(--color-bg);
+}
+
+.services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    gap: 2rem;
+}
+
+.service-card {
+    background: var(--color-surface);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 20px;
+    padding: 2.5rem;
+    transition: var(--transition-medium);
+}
+
+.service-card:hover {
+    border-color: var(--color-primary);
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+.service-title {
+    font-family: var(--font-heading);
+    font-size: 1.5rem;
+    color: white;
+    margin-bottom: 2rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.service-list {
+    list-style: none;
+}
+
+.service-list li {
+    margin-bottom: 1.5rem;
+}
+
+.service-list li strong {
+    display: block;
+    color: #fff;
+    font-size: 1.1rem;
+    margin-bottom: 0.5rem;
+}
+
+.service-list li p {
+    color: var(--color-text-muted);
+    font-size: 0.95rem;
+    line-height: 1.5;
+}
+
+.service-content p {
+    color: var(--color-text-muted);
+    font-size: 1.1rem;
+}
+
+@media (max-width: 768px) {
+    .services-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .service-card {
+        padding: 1.5rem;
+    }
+}
+
+/* Clean Video Grid Section - Now below Hero */
+.phone-intro-section {
+    padding: 60px 0;
+    /* Standard padding */
+    background: radial-gradient(circle at center, rgba(var(--color-primary-rgb), 0.05) 0%, transparent 70%);
+    position: relative;
+    z-index: 5;
+}
+
+
+
+/* Intro Text - Below Grid */
+.intro-content {
+    text-align: center;
+    max-width: 700px;
+    /* Reduced for better line balance */
+    margin: 0 auto;
+    position: relative;
+    z-index: 10;
+    padding: 0 20px;
+}
+
+.intro-content .section-title {
+    font-size: 3.5rem;
+    margin-bottom: 1.5rem;
+    background: linear-gradient(135deg, #fff 0%, var(--color-primary) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    line-height: 1.1;
+}
+
+.intro-content .section-desc {
+    font-size: 1.4rem;
+    /* More legible */
+    color: var(--color-text-muted);
+    max-width: 600px;
+    margin: 0 auto;
+    line-height: 1.6;
+}

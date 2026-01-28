@@ -1,0 +1,44 @@
+:root {
+    /* Google Fonts - Syne */
+    @import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&display=swap');
+
+    /* Brand Colors - Yours Istanbul Inspired */
+    --color-primary: #E60286;
+    /* Vibrant Magenta */
+    --color-primary-rgb: 230, 2, 134;
+
+    --color-secondary: #FEC00F;
+    /* Bright Yellow */
+    --color-secondary-rgb: 254, 192, 15;
+
+    --color-text: #000000;
+    --color-text-muted: #444444;
+    --color-background: #FFFFFF;
+    --color-background-alt: #F8F8F8;
+
+    /* Functional Colors */
+    --color-success: #00B894;
+    --color-error: #FF4757;
+
+    /* Typography */
+    --font-heading: 'Syne', sans-serif;
+    --font-body: 'Syne', sans-serif;
+    /* Using Syne for body too for that specific vibe, or fallback to Inter/sans */
+
+    /* Dimensions */
+    --header-height: 80px;
+    --border-radius-sm: 8px;
+    --border-radius-md: 20px;
+    --border-radius-lg: 50px;
+    /* Pill shape */
+
+    /* Transitions */
+    --transition-fast: 0.2s ease;
+    --transition-normal: 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    --shadow-sm: 0 4px 10px rgba(0, 0, 0, 0.05);
+    --shadow-md: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+@media (prefers-color-scheme: light) {
+    /* Potential Light mode override if requested, keeping dark for premium feel now */
+}

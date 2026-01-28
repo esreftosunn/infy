@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog | Infy Influencer Marketing Agency</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Outfit:wght@400;500;700;800&display=swap"
+        rel="stylesheet">
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="assets/css/variables.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+    <style>
+        /* Specific styles for standalone blog page */
+        .blog-page-header {
+            padding-top: 120px;
+            padding-bottom: 40px;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="container header-inner">
+            <a href="index.html" class="logo">
+                <img src="assets/img/logo.png" alt="Infy" class="logo-img">
+            </a>
+            <nav class="nav">
+                <a href="work.html" class="nav-link">İşlerimiz</a>
+                <a href="about.html" class="nav-link">Hakkımızda</a>
+                <a href="services.html" class="nav-link">Hizmetlerimiz</a>
+                <a href="index.html#references" class="nav-link">Referanslar</a>
+                <a href="blog.html" class="nav-link active">Blog</a>
+                <a href="index.html#contact" class="nav-link">İletişim</a>
+            </nav>
+            <div class="header-actions">
+                <a href="admin.html" class="btn btn-primary">Giriş Yap</a>
+                <a href="index.html#apply" class="btn btn-primary">Başvur</a>
+            </div>
+            <button class="menu-toggle" aria-label="Menu">
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </header>
+
+    <main>
+
+        <!-- Blog Header -->
+        <section class="blog-page-header">
+            <div class="container">
+                <h1 class="section-title">İçgörüler & Trendler</h1>
+                <p class="section-desc">Influencer marketing dünyasından en güncel haberler ve stratejik ipuçları.</p>
+            </div>
+        </section>
+
+        <!-- Blog Section -->
+        <section id="blog" class="section blog-section" style="padding-top: 0;">
+            <div class="container">
+                <!-- Dynamic Blog Grid -->
+                <div class="blog-grid" id="blog-grid-dynamic">
+                    <!-- Javascript will render posts here -->
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Contact Footer -->
+    <footer id="contact" class="footer">
+        <div class="container footer-grid">
+            <div class="footer-info">
+                <a href="index.html" class="logo">
+                    <img src="assets/img/logo-footer.png" alt="Infy" class="logo-img">
+                </a>
+                <p>Global etki yaratan influencer marketing ajansı.</p>
+                <div class="social-links">
+                    <a href="https://www.instagram.com/infy.agency/" target="_blank">
+                        <img src="assets/img/icon-instagram.png" alt="Instagram">
+                    </a>
+                    <a href="https://www.linkedin.com/company/infyagency/?viewAsMember=true" target="_blank">
+                        <img src="assets/img/icon-linkedin.png" alt="LinkedIn">
+                    </a>
+                </div>
+            </div>
+            <div class="footer-contact">
+                <h4>İletişim</h4>
+                <p>hello@infy.com.tr</p>
+                <p>Zühtüpaşa Mah. Şefikbey Sok. Archerson Köşkü No:3 Kadıköy / İstanbul</p>
+            </div>
+            <div class="footer-links">
+                <h4>Hızlı Linkler</h4>
+                <a href="index.html#about">Hakkımızda</a>
+                <a href="index.html#work">İşlerimiz</a>
+                <a href="index.html#apply">Başvuru</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 Agency. Tüm hakları saklıdır.</p>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+    <script src="assets/js/main.js"></script>
+</body>
+
+</html>
